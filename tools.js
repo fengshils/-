@@ -1,5 +1,5 @@
 /**
- * 判断valuse是否在list里
+ * 判断value是否在list里
  * @param {*} search 
  * @param {*} array 
  * @returns 
