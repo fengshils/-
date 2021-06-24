@@ -14,6 +14,8 @@ koa2 test && cd test && npm install
 npm start
 访问 http://localhost:3000 就可以看到项目效果
 ```
+
+```
 const Koa = require('koa');
 const app = new Koa();
 
@@ -22,6 +24,8 @@ app.use(async ctx => {
 });
 
 app.listen(3000);
+```
+
 ```
 //获取koa2,post请求的json数据
 ctx.request.body
