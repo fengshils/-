@@ -47,3 +47,37 @@
         return 'ok';
     }
 ```
+
+```
+php单例模式 数据库操作类和网络请求类都很喜欢用单例模式，那么我们就来实现一个Http请求类的单例模式的开发。
+<?php 
+
+class HttpService{
+    private static $instance;
+
+    public function GetInstance(){
+        if(self::$instance == NULL){
+            self::$instance = new HttpService();
+        }
+        return self::$instance;
+    }
+
+    public function Post(){
+        echo '发送Post请求', PHP_EOL;
+    }
+
+    public function Get(){
+        echo '发送Get请求', PHP_EOL;
+    }
+}
+
+$httpA = new HttpService();
+$httpA->Post();
+$httpA->Get();
+
+$httpB = new HttpService();
+$httpB->Post();
+$httpB->Get();
+
+var_dump($httpA == $httpB);
+```
