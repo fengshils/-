@@ -81,3 +81,17 @@ $httpB->Get();
 
 var_dump($httpA == $httpB);
 ```
+
+```
+// 读取json文件
+$json = file_get_contents('manifest.json');
+//
+// // 转换成关联数组
+$array = json_decode($json, true);
+//
+// // 打印数组
+print_r($array['id']);
+$array['id']='ceshi';
+file_put_contents('manifest.json',json_encode($array));
+
+```
