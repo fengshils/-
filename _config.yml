@@ -3,7 +3,7 @@ safe: true
 source: [your repo's top level directory]
 incremental: false
 highlighter: rouge
-theme: Hacker
+theme: Minimal
 gist:
   noscript: false
 kramdown:
