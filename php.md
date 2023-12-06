@@ -95,3 +95,57 @@ $array['id']='ceshi';
 file_put_contents('manifest.json',json_encode($array));
 
 ```
+
+```
+    public function csvToPng($csvFile)
+    {
+        $data = array(); // 存储CSV数据的数组
+
+        // 打开CSV文件
+        if ($handle = fopen($csvFile, 'r')) {
+            // 逐行读取CSV文件
+            while (($row = fgetcsv($handle)) !== false) {
+                // 将每行数据存储到数组中
+                $data[] = $row;
+            }
+            // 关闭CSV文件
+            fclose($handle);
+        } else {
+            echo "无法打开CSV文件：$csvFile";
+        }
+
+        $image_file = '/tmp/image.png';
+//        $fontFile = '/usr/share/fonts/wqy-microhei/wqy-microhei.ttc';
+        $fontFile = __DIR__ . '/../tools/SourceHanSerifCN-ExtraLight-3.otf';
+
+        // Create a blank image
+        $image = imagecreatetruecolor(800, count($data)*15);
+
+        // Set the background color
+        $bg_color = imagecolorallocate($image, 255, 255, 255);
+        imagefill($image, 0, 0, $bg_color);
+
+        // 设置文本颜色为黑色
+        $textColor = imagecolorallocate($image, 0, 0, 0);
+        // Load the font file
+//        $font = imageloadfont($font_file);
+
+//        $text = '你好，世界！';
+//        imagettftext($image, 14, 0, 10, 50, $textColor, $fontFile, $text);
+
+        foreach ($data as $index => $datum){
+            foreach ($datum as &$value){
+                str_replace('\n', "", $value);
+            }
+            $value = join(" ", $datum);
+            imagettftext($image, 10, 0, 10, 15+($index* 15), $textColor, $fontFile, $value);
+//            imagettftext($image, 13, 0, 10, 10*($index+1), $text_color, $font, $value);
+        }
+
+        // Save the image to a file
+        imagepng($image, $image_file);
+
+        // Free up memory
+        imagedestroy($image);
+    }
+```
