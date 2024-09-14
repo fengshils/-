@@ -1,0 +1,50 @@
+1、	环境信息
+1）	操作系统
+Ubuntu 22.04 server
+	2)  容器
+		Docker
+2）	语言python3.8-python3.10
+2、	使用工具
+工具	文档地址	版本
+Airtest	欢迎使用 - Airtest Project Docs (netease.com)
+最新
+安卓模拟器	GitHub - remote-android/redroid-doc: redroid (Remote-Android) is a multi-arch, GPU enabled, Android in Cloud solution. Track issues / docs here
+安卓11
+3、	部署安卓容器
+假定docker环境已经安装完成可以使用
+安装内核模块
+apt install linux-modules-extra-`uname -r`
+modprobe binder_linux devices="binder,hwbinder,vndbinder"
+modprobe ashmem_linux
+拉取容器镜像
+docker pull redroid/redroid:11.0.0-latest
+启动模拟器
+docker run -itd --rm --privileged \
+    -v ~/data:/data \
+    -p 5555:5555 \
+    redroid/redroid:11.0.0-latest
+
+4、	使用airtest ide编辑或开发自动化脚本
+下载airtest ide工具，地址AirTest-AirtestIDE自动化编辑器 (netease.com)
+文档地址：安装与启动 - Airtest Project Docs (netease.com)
+测试脚本开发主要使用airtest以及poco，文档地址airtest脚本开发文档
+poco文档地址
+5、	脱离ide，在服务器段运行脚本airtest脚本脱离ide运行
+安装python环境，3.8-3.10并创建虚拟环境
+python3 -m venv venv
+进入虚拟环境
+source venv/bin/activate
+安装依赖
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple airtest
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pocoui
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python-headless
+执行脚本
+venv/bin/python 你的自动化脚本
+
+AirtestIDE常用操作
+1、	远程设备连接，remote_android地址为服务器ip:5555
+ 
+2、	完成安卓设备链接
+ 
+3、	脚本录制
+使用脚本录制可以节省自动化脚本开发时间，airtest是基于图像识别的的方式执行设备操控，poco则是基于UI控件搜索原理执行设备操控
